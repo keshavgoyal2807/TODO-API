@@ -4,7 +4,11 @@
   "description": "",
   "main": "mongo.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js"
+  },
+  "engines": {
+    "node":"11.3.0"
   },
   "author": "",
   "license": "ISC",

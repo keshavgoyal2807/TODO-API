@@ -5,6 +5,7 @@ var objectid = require('mongodb').ObjectID;
 var mongoose = require('./db/mongoose').mongoose;
 var Todo = require('./models/todo').Todo;
 var User = require('./models/user').User;
+var port = process.SET.PORT || 3000;
 
 var app = express();
 
@@ -55,12 +56,12 @@ app.get('/todos/:id',(req,res) => {
     })
 
 });
-app.listen(3000,(err,res) => {
+app.listen(port,(err,res) => {
     if(err)
     {
         return console.log('Unable to connect');
     }
-    console.log('connected to port 3000');
+    console.log(`connected to port ${port}`);
 });
 
 module.exports = {
