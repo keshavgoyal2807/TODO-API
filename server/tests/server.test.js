@@ -57,3 +57,23 @@ describe('get/todos/:id', () => {
         .end(done);
     });
 });
+
+
+describe('update/todos/:id',() => {
+    var id = '5c308101aa7dd30770324890';
+    it('should update id',(done) => {
+        request(server)
+        .patch(`/todos/${id}`)
+        .send({
+            text:"update test",
+            completed:true
+        })
+        .expect(200)
+        .expect((res) => {
+            // console.log(res.body);
+                expect(res.body.text).toBe("update test");
+                expect(res.body.completed).toBe(true);
+            })
+            .end(done);
+        });
+    });

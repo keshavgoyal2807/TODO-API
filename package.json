@@ -8,13 +8,14 @@
     "test": "mocha server/**/*.test.js"
   },
   "engines": {
-    "node":"11.3.0"
+    "node": "11.3.0"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "lodash": "^4.17.11",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.0"
   },
