@@ -8,7 +8,7 @@ var Todo = require('./models/todo').Todo;
 var User = require('./models/user').User;
 var port = process.env.PORT || 3000;
 
-console.log(process.env);
+console.log(process.env.MONGODB_URI);
 var app = express();
 
 app.use(bodyparser.json());
