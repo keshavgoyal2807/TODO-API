@@ -6,8 +6,9 @@ var lodash = require('lodash');
 var mongoose = require('./db/mongoose').mongoose;
 var Todo = require('./models/todo').Todo;
 var User = require('./models/user').User;
-var port = process.SET.PORT || 3000;
+var port = process.env.PORT || 3000;
 
+console.log(process.env);
 var app = express();
 
 app.use(bodyparser.json());
