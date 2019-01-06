@@ -22,7 +22,7 @@ app.post('/todos',(req,res) => {
             res.status(400).send(err);
         }
         res.send(res1);
-    })
+    });
 });
 
 
@@ -55,7 +55,7 @@ app.get('/todos/:id',(req,res) => {
         else{
             res.send(res1);
         }
-    })
+    });
 
 });
 
@@ -75,7 +75,7 @@ app.delete('/todos/:id',(req,res) => {
             return res.status(404).send('empty');
         }
         return res.status(200).send(res1);
-    })
+    });
 });
 
 app.patch('/todos/:id',(req,res) => {
