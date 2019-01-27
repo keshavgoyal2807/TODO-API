@@ -137,6 +137,17 @@ app.get('/users/me',authenticate,(req,res) => {
 });
 
 
+app.post('/users/login',(req,res) => {
+    var user = lodash.pick(req.body,["email","password"]);
+    User.findUser(user.email,user.password).then((user) => {
+        user.generateAuthToken().then((token) => {
+            res.header('x-auth',token).send(user);
+        })
+    }).catch((e) => {
+        res.status(400).send("login failed");
+    })
+})
+
 app.listen(port,(err,res) => {
     if(err)
     {

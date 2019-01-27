@@ -1,8 +1,10 @@
 var request = require('supertest');
 var expect = require('expect');
-
+var jwt = require('jsonwebtoken');
 var server = require('./../server').app;
 var Todo = require('./../models/todo').Todo;
+var User = require('./../models/user').User;
+var objectid = require('mongodb').ObjectID;
 
 describe('check sever.js',() => {
 
@@ -77,3 +79,52 @@ describe('update/todos/:id',() => {
             .end(done);
         });
     });
+
+var u1 = new objectid();
+var u2 = new objectid();
+
+var users = [
+    {
+        _id:u1,
+        email:"kes@gmail.com",
+        password:"keshav123",
+        tokens:[
+            {access:"auth",
+            token:jwt.sign({id:u1,access:"auth"},'keshav').toString()}
+        ]
+    },
+    {
+        _id:u2,
+        email:"kes123@gmail.com",
+        password:"kes123hav",
+    }
+]
+
+var user = new User(users[0]).save().then((done) => {done();}).catch((e) => {});
+var user1 = new User(users[1]).save().then((done) => {done();}).catch((e) => {});
+
+// Promise.all([user,user1]).then(() => {
+//     console.log("123");
+// }).catch((e) =>{
+//     console.log(e);
+// })
+
+describe('check signup',() => {
+    it('GET/users/me',(done) => {
+        request(server)
+        .get('/users/me')
+        .set('x-auth',users[0].tokens[0].token)
+        .expect(200)
+        .expect((res) => {
+            expect(res.body._id).toBe(users[0]._id.toString());
+        })
+        .end(done)
+    })
+
+    it('pass if unauthorized',(done) => {
+        request(server)
+        .get('/users/me')
+        .expect(401)
+        .end(done)
+    })
+})
